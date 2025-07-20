@@ -1,4 +1,4 @@
-package org.tasnimulhasan.kmpmaster.navigation
+package com.tasnimulhasan.kmpmaster.ui.core.components
 
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api

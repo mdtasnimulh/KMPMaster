@@ -33,9 +33,9 @@ import androidx.navigation.compose.rememberNavController
 import com.tasnimulhasan.home.HomeRoute
 import org.koin.compose.KoinApplication
 import org.tasnimulhasan.kmpmaster.navigation.KMPMasterNavHost
-import org.tasnimulhasan.kmpmaster.navigation.KMPMasterNavigationBar
-import org.tasnimulhasan.kmpmaster.navigation.KMPMasterNavigationBarItem
-import org.tasnimulhasan.kmpmaster.navigation.KMPMasterTopAppBar
+import com.tasnimulhasan.kmpmaster.ui.core.components.KMPMasterNavigationBar
+import com.tasnimulhasan.kmpmaster.ui.core.components.KMPMasterNavigationBarItem
+import com.tasnimulhasan.kmpmaster.ui.core.components.KMPMasterTopAppBar
 import kotlin.reflect.KClass
 
 @Composable
