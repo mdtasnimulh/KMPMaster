@@ -11,7 +11,7 @@ kotlin {
         }
 
         commonMain.dependencies {
-
+            implementation(projects.ui.core)
         }
 
         desktopMain.dependencies {

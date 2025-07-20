@@ -104,6 +104,7 @@ kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref =
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room = { id = "androidx.room", version.ref = "room" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 
 # Custom Gradle Plugins
 kmpmaster-kotlinMultiplatform = { id = "org.tasnimulhasan.kmpmaster.kotlin.multiplatform" }
@@ -111,3 +112,4 @@ kmpmaster-androidLibrary = { id = "org.tasnimulhasan.kmpmaster.android.library" 
 kmpmaster-domainModule = { id = "org.tasnimulhasan.kmpmaster.shared.domain.module" }
 kmpmaster-dataModule = { id = "org.tasnimulhasan.kmpmaster.shared.data.module" }
 kmpmaster-featureModule = { id = "org.tasnimulhasan.kmpmaster.feature.module" }
+kmpmaster-jvm-library = { id = "org.tasnimulhasan.kmpmaster.jvm.library" }

@@ -40,5 +40,10 @@ gradlePlugin {
             id = libs.plugins.kmpmaster.featureModule.get().pluginId
             implementationClass = "FeatureModuleConventionPlugin"
         }
+
+        register("jvmLibrary") {
+            id = "kmpmaster.jvm.library"
+            implementationClass = "JvmLibraryConventionPlugin"
+        }
     }
 }
