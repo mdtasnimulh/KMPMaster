@@ -94,10 +94,7 @@ internal fun KMPMasterApp(
             .fillMaxSize()
     ) {
         Scaffold(
-            modifier = modifier
-                .clickable() {
-
-                },
+            modifier = modifier,
             topBar = {
                 KMPMasterTopAppBar(
                     titleRes = currentTitleRes,
