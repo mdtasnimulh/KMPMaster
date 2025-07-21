@@ -36,6 +36,7 @@ import org.tasnimulhasan.kmpmaster.navigation.KMPMasterNavHost
 import com.tasnimulhasan.kmpmaster.ui.core.components.KMPMasterNavigationBar
 import com.tasnimulhasan.kmpmaster.ui.core.components.KMPMasterNavigationBarItem
 import com.tasnimulhasan.kmpmaster.ui.core.components.KMPMasterTopAppBar
+import com.tasnimulhasan.kmpmaster.ui.core.theme.KMPMasterTheme
 import kotlin.reflect.KClass
 
 @Composable
@@ -45,7 +46,7 @@ fun KMPMasterApp() {
 
         }
     ) {
-        MaterialTheme {
+        KMPMasterTheme {
             val appState = rememberKMPMasterAppState()
 
             KMPMasterApp(
