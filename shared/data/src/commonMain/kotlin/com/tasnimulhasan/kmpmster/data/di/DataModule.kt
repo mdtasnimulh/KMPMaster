@@ -1,16 +1,10 @@
 package com.tasnimulhasan.kmpmster.data.di
 
-import com.tasnimulhasan.kmpmaster.data.datastore.dataStoreModule
-import com.tasnimulhasan.kmpmaster.domain.repository.PreferencesDataStoreRepository
-import com.tasnimulhasan.kmpmster.data.repoimpl.PreferencesDataStoreRepoImpl
-import org.koin.core.module.dsl.bind
-import org.koin.core.module.dsl.singleOf
-import org.koin.dsl.module
+import org.koin.core.annotation.Module
 
-val dataModule = module {
-    includes(dataStoreModule)
+@Module
+class DataModule {
 
-    singleOf(::PreferencesDataStoreRepoImpl) {
-        bind<PreferencesDataStoreRepository>()
-    }
+
+
 }

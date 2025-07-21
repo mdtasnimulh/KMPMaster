@@ -22,7 +22,7 @@ fun HomeScreen(
 ) {
     val isFirstLaunch = viewModel.isFirstLaunch.collectAsState()
 
-    var isFirstLaunchStr = ""
+    var isFirstLaunchStr = "Unknown"
 
     LaunchedEffect(isFirstLaunch){
         isFirstLaunchStr = if (isFirstLaunch.value) {

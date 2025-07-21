@@ -38,16 +38,15 @@ import com.tasnimulhasan.kmpmaster.ui.core.components.KMPMasterNavigationBarItem
 import com.tasnimulhasan.kmpmaster.ui.core.components.KMPMasterTopAppBar
 import com.tasnimulhasan.kmpmaster.ui.core.theme.KMPMasterTheme
 import org.koin.core.module.Module
-import org.tasnimulhasan.kmpmaster.di.kmpMasterModule
 import kotlin.reflect.KClass
 
 @Composable
 fun KMPMasterApp(
-    platformModule: Module = Module()
+    //platformModule: Module = Module()
 ) {
     KoinApplication(
         application = {
-            modules(kmpMasterModule, platformModule)
+            //modules(kmpMasterModule, platformModule)
         }
     ) {
         KMPMasterTheme {

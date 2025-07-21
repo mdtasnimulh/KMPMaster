@@ -17,9 +17,9 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             KMPMasterApp(
-                platformModule = module {
+                /*platformModule = module {
                     single<Context> { applicationContext }
-                }
+                }*/
             )
         }
     }
