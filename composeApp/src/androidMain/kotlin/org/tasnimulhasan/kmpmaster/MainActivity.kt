@@ -1,11 +1,13 @@
 package org.tasnimulhasan.kmpmaster
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import org.koin.dsl.module
 import org.tasnimulhasan.kmpmaster.ui.KMPMasterApp
 
 class MainActivity : ComponentActivity() {
@@ -14,7 +16,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            KMPMasterApp()
+            KMPMasterApp(
+                platformModule = module {
+                    single<Context> { applicationContext }
+                }
+            )
         }
     }
 }
