@@ -39,6 +39,8 @@ kotlin {
 
         }
         commonMain.dependencies {
+            implementation(projects.shared.dataStore)
+
             implementation(projects.ui.core)
             implementation(projects.feature.home)
             implementation(projects.feature.profile)
