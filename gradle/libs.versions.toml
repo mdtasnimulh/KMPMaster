@@ -18,13 +18,14 @@ kotlinx-coroutines = "1.10.2"
 navigationCompose = "2.8.0-alpha13"
 kotlinSerialization = "1.9.0"
 koin = "4.1.0"
-ktor = "3.2.1"
+ktor = "3.2.2"
 coil3 = "3.2.0"
 ksp = "2.2.0-2.0.2"
 sqlite = "2.5.2"
 room = "2.7.2"
 materialIconsCore = "1.7.3"
 datastore = "1.1.7"
+kotlinx-datetime = "0.7.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -76,6 +77,9 @@ android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref
 
 datastore-preferences-core = { group = "androidx.datastore", name = "datastore-preferences-core", version.ref = "datastore" }
 
+kotlinx-dateTime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
+coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+
 [bundles]
 ktor = [
     "ktor-client-core",
@@ -95,6 +99,11 @@ koin-compose = [
     "koin-compose",
     "koin-compose-viewmodel",
     "koin-compose-viewmodel-navigation"
+]
+kotlin = [
+    "kotlinx-dateTime",
+    "coroutines-core",
+    "kotlinx-serialization-json"
 ]
 
 [plugins]
