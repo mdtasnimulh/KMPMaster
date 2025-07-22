@@ -1,12 +1,12 @@
-package com.tasnimulhasan.kmpmster.data.repoimpl
+package com.tasnimulhasan.kmpmster.repoimpl
 
-import androidx.datastore.preferences.core.booleanPreferencesKey
-import androidx.datastore.preferences.core.stringPreferencesKey
 import com.tasnimulhasan.kmpmaster.data.datastore.storage.Storage
 import com.tasnimulhasan.kmpmaster.domain.repository.PreferencesDataStoreRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import org.koin.core.annotation.Factory
 
+@Factory
 class PreferencesDataStoreRepoImpl(
     private val storage: Storage,
 ) : PreferencesDataStoreRepository {

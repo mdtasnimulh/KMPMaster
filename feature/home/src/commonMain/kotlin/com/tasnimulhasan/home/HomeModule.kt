@@ -9,14 +9,5 @@ import org.koin.core.annotation.Module
 
 @Module
 class HomeModule() {
-    
-    @Factory(binds = [GetIsFirstLaunchUseCase::class])
-    fun getIsFirstLaunchUseCase() = GetIsFirstLaunchUseCase()
-
-    @Factory(binds = [SetIsFirstLaunchUseCase::class])
-    fun setIsFirstLaunchUseCase() = SetIsFirstLaunchUseCase()
-
-    @KoinViewModel
-    fun homeViewModel() = HomeViewModel()
 
 }

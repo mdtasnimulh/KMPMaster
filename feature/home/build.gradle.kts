@@ -19,6 +19,7 @@ kotlin {
             implementation(projects.ui.core)
             implementation(projects.shared.domain)
             api(libs.koin.annotations)
+            implementation(libs.bundles.koin.compose)
         }
 
         desktopMain.dependencies {

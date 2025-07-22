@@ -23,8 +23,6 @@ fun NavGraphBuilder.homeScreen(
         popEnterTransition = { fadeIn() },
         popExitTransition = { fadeOut() }
     ) {
-        HomeScreen(
-
-        )
+        HomeScreen()
     }
 }

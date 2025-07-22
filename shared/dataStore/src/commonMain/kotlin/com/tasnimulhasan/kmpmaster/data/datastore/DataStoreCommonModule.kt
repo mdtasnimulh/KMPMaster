@@ -4,6 +4,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.tasnimulhasan.kmpmaster.data.datastore.storage.DataStoreStorage
 import com.tasnimulhasan.kmpmaster.data.datastore.storage.Storage
+import com.tasnimulhasan.kmpmaster.data.datastore.storage.createDataStore
+import com.tasnimulhasan.kmpmaster.data.datastore.storage.dataStoreFileName
 import org.koin.core.annotation.Factory
 import org.koin.core.annotation.Module
 import org.koin.core.annotation.Single
@@ -19,7 +21,14 @@ internal expect val platformModule: Module*/
 @Module
 class DataStoreCommonModule {
 
+    /*@Factory(binds = [Storage::class])
+    fun dataStoreStorage() = ::DataStoreStorage*/
+
     @Factory
-    fun dataStoreStorage(dataStore: DataStore<Preferences>) = DataStoreStorage(dataStore)
+    fun provideDataStore(): DataStore<Preferences> {
+        return createDataStore {
+            dataStoreFileName
+        }
+    }
 
 }

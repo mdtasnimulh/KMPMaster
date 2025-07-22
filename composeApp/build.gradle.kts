@@ -43,6 +43,8 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(projects.shared.dataStore)
+            implementation(projects.shared.data)
+            implementation(projects.shared.domain)
 
             implementation(projects.ui.core)
             implementation(projects.feature.home)
