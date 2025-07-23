@@ -9,5 +9,5 @@ import org.koin.core.annotation.Single
 class GetIsFirstLaunchUseCase(
     @Provided private val repository: PreferencesDataStoreRepository
 ) {
-    operator fun invoke(): Flow<Boolean> = repository.getIsFirstLaunch()
+    operator fun invoke(): Flow<String> = repository.getIsFirstLaunch()
 }

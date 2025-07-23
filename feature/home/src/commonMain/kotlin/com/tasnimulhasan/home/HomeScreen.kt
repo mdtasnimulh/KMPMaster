@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,6 +20,13 @@ fun HomeScreen(
     viewModel: HomeViewModel = koinViewModel()
 ) {
     val isFirstLaunch = viewModel.isFirstLaunch.collectAsState()
+
+    LaunchedEffect(isFirstLaunch.value) {
+        println("Is First Launch Value: ${isFirstLaunch.value}")
+        if (isFirstLaunch.value == "Y"){
+            viewModel.setIsFirstLaunch("N")
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -34,10 +42,10 @@ fun HomeScreen(
         Spacer(Modifier.height(16.dp))
 
         Text(
-            text = if (isFirstLaunch.value) {
-                "First Launch"
+            text = if (isFirstLaunch.value == "Y") {
+                "First Launch ${isFirstLaunch.value}"
             } else {
-                "Something Wrong"
+                "Already Launched ${isFirstLaunch.value}"
             },
             style = MaterialTheme.typography.titleLarge
         )

@@ -3,6 +3,7 @@ package com.tasnimulhasan.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tasnimulhasan.kmpmaster.domain.usecase.GetIsFirstLaunchUseCase
+import com.tasnimulhasan.kmpmaster.domain.usecase.SetIsFirstLaunchUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.firstOrNull
@@ -12,20 +13,21 @@ import org.koin.core.annotation.Provided
 
 @KoinViewModel
 class HomeViewModel(
-    //@Provided private val setIsFirstLaunchUseCase: SetIsFirstLaunchUseCase,
+    @Provided private val setIsFirstLaunchUseCase: SetIsFirstLaunchUseCase,
     @Provided private val getIsFirstLaunchUseCase: GetIsFirstLaunchUseCase,
 ) : ViewModel() {
 
-    private val _isFirstLaunch = MutableStateFlow(false)
+    private val _isFirstLaunch = MutableStateFlow("")
     val isFirstLaunch = _isFirstLaunch.asStateFlow()
 
     init {
         fetchIsFirstLaunch()
     }
 
-    fun setIsFirstLaunch(isFirstLaunch: Boolean) {
+    fun setIsFirstLaunch(isFirstLaunch: String) {
         viewModelScope.launch {
-            //setIsFirstLaunchUseCase.invoke(isFirstLaunch)
+            setIsFirstLaunchUseCase.invoke(isFirstLaunch)
+            fetchIsFirstLaunch()
         }
     }
 

@@ -12,12 +12,12 @@ class PreferencesDataStoreRepoImpl(
     @Provided private val storage: Storage,
 ) : PreferencesDataStoreRepository {
 
-    override suspend fun isFirstLaunch(isFirstLaunch: Boolean) {
+    override suspend fun isFirstLaunch(isFirstLaunch: String) {
         storage.writeValue(IsFirstLaunchKey, isFirstLaunch)
     }
 
-    override fun getIsFirstLaunch(): Flow<Boolean> = storage.getAsFlow(IsFirstLaunchKey)
-        .map { it ?: false }
+    override fun getIsFirstLaunch(): Flow<String> = storage.getAsFlow(IsFirstLaunchKey)
+        .map { it ?: "Y" }
 
-    data object IsFirstLaunchKey : Storage.Key.BooleanKey("isFirstLaunch", false)
+    data object IsFirstLaunchKey : Storage.Key.StringKey("is_first_launch", "Y")
 }

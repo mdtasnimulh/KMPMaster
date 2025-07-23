@@ -8,6 +8,6 @@ import org.koin.core.annotation.Single
 class SetIsFirstLaunchUseCase(
     @Provided private val preferencesDataStoreRepository: PreferencesDataStoreRepository
 ) {
-    suspend fun invoke(isFirstLaunch: Boolean) =
+    suspend fun invoke(isFirstLaunch: String) =
         preferencesDataStoreRepository.isFirstLaunch(isFirstLaunch = isFirstLaunch)
 }

@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface PreferencesDataStoreRepository {
 
-    suspend fun isFirstLaunch(isFirstLaunch: Boolean)
-    fun getIsFirstLaunch(): Flow<Boolean>
+    suspend fun isFirstLaunch(isFirstLaunch: String)
+    fun getIsFirstLaunch(): Flow<String>
 
 }
