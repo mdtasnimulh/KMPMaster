@@ -12,10 +12,9 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
-import org.koin.core.annotation.Factory
 import org.koin.core.annotation.Single
 
-@Factory
+@Single
 class DataStoreStorage(
     private val dataStore: DataStore<Preferences>,
 ) : Storage {

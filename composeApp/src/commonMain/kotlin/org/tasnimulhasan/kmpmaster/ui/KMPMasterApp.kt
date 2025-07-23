@@ -2,7 +2,6 @@ package org.tasnimulhasan.kmpmaster.ui
 
 import ProfileRoute
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -31,34 +30,24 @@ import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.rememberNavController
 import com.tasnimulhasan.home.HomeRoute
-import org.koin.compose.KoinApplication
-import org.tasnimulhasan.kmpmaster.navigation.KMPMasterNavHost
 import com.tasnimulhasan.kmpmaster.ui.core.components.KMPMasterNavigationBar
 import com.tasnimulhasan.kmpmaster.ui.core.components.KMPMasterNavigationBarItem
 import com.tasnimulhasan.kmpmaster.ui.core.components.KMPMasterTopAppBar
 import com.tasnimulhasan.kmpmaster.ui.core.theme.KMPMasterTheme
-import org.koin.core.module.Module
+import org.tasnimulhasan.kmpmaster.navigation.KMPMasterNavHost
 import kotlin.reflect.KClass
 
 @Composable
-fun KMPMasterApp(
-    //platformModule: Module = Module()
-) {
-    KoinApplication(
-        application = {
-            //modules(kmpMasterModule, platformModule)
-        }
-    ) {
-        KMPMasterTheme {
-            val appState = rememberKMPMasterAppState()
+fun KMPMasterApp() {
+    KMPMasterTheme {
+        val appState = rememberKMPMasterAppState()
 
-            KMPMasterApp(
-                appState = appState,
-                onTopAppBarActionClick = {
+        KMPMasterApp(
+            appState = appState,
+            onTopAppBarActionClick = {
 
-                }
-            )
-        }
+            }
+        )
     }
 }
 

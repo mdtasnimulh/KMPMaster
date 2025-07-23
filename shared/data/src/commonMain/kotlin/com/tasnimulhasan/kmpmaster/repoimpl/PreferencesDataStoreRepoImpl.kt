@@ -1,14 +1,15 @@
-package com.tasnimulhasan.kmpmster.repoimpl
+package com.tasnimulhasan.kmpmaster.repoimpl
 
 import com.tasnimulhasan.kmpmaster.data.datastore.storage.Storage
 import com.tasnimulhasan.kmpmaster.domain.repository.PreferencesDataStoreRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import org.koin.core.annotation.Factory
+import org.koin.core.annotation.Provided
+import org.koin.core.annotation.Single
 
-@Factory
+@Single
 class PreferencesDataStoreRepoImpl(
-    private val storage: Storage,
+    @Provided private val storage: Storage,
 ) : PreferencesDataStoreRepository {
 
     override suspend fun isFirstLaunch(isFirstLaunch: Boolean) {
