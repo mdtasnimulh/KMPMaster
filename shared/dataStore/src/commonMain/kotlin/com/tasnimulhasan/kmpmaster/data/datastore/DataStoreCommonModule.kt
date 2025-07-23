@@ -12,6 +12,10 @@ import org.koin.core.annotation.Single
 @ComponentScan("com.tasnimulhasan.kmpmaster.data.datastore")
 class DataStoreCommonModule {
 
+    init {
+        platformModule
+    }
+
     @Single
     fun provideDataStore(): DataStore<Preferences> {
         return createDataStore {
