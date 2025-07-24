@@ -39,7 +39,7 @@ kotlin {
         val desktopMain by getting
         
         androidMain.dependencies {
-
+            implementation(libs.koin.androidx.compose)
         }
         commonMain.dependencies {
             implementation(projects.shared.dataStore)
@@ -55,12 +55,17 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.bundles.koin.compose)
             api(libs.koin.annotations)
-            implementation(libs.datastore.preferences.core)
+            api(libs.datastore.preferences.core)
+            api(libs.datastore.preferences)
+            api(libs.koin.annotations)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
         desktopMain.dependencies {
+
+        }
+        iosMain.dependencies {
 
         }
     }
