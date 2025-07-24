@@ -13,7 +13,7 @@ kotlin {
             implementation(libs.koin.androidx.compose)
         }
         commonMain.dependencies {
-            implementation(libs.datastore.preferences.core)
+            api(libs.datastore.preferences.core)
             api(libs.datastore.preferences)
             api(libs.koin.annotations)
         }

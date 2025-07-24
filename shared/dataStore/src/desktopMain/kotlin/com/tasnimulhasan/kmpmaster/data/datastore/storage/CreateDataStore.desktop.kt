@@ -4,7 +4,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import java.io.File
 
-fun createDataStore(): DataStore<Preferences> {
+actual fun createDataStore(context: Any?): DataStore<Preferences> {
     val parentFolder = File(System.getProperty("user.dir"))
     if (!parentFolder.exists()) {
         parentFolder.mkdirs()

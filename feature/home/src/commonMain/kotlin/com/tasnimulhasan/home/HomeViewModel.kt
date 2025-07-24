@@ -27,7 +27,7 @@ class HomeViewModel(
     fun setIsFirstLaunch(isFirstLaunch: String) {
         viewModelScope.launch {
             setIsFirstLaunchUseCase.invoke(isFirstLaunch)
-            fetchIsFirstLaunch()
+            //fetchIsFirstLaunch()
         }
     }
 
