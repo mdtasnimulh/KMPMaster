@@ -15,7 +15,7 @@ fun createDataStore(
     return PreferenceDataStoreFactory.create(
         scope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
         produceFile = {
-            context.preferencesDataStoreFile("kmpmaster.preferences_pb")
+            context.preferencesDataStoreFile(dataStoreFileName)
         }
     )
 }
