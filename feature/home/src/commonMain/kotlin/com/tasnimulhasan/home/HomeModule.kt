@@ -1,8 +1,8 @@
 package com.tasnimulhasan.home
 
-import org.koin.core.annotation.ComponentScan
-import org.koin.core.annotation.Module
+import org.koin.core.module.dsl.viewModel
+import org.koin.dsl.module
 
-@Module
-@ComponentScan("com.tasnimulhasan.home")
-class HomeModule()
+val homeModule = module {
+    viewModel { HomeViewModel(get(), get()) }
+}

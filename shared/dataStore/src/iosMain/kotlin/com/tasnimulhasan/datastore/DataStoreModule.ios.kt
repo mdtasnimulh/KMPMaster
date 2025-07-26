@@ -1,0 +1,7 @@
+package com.tasnimulhasan.datastore
+
+import org.koin.core.module.Module
+import org.koin.dsl.module
+
+actual val dataStoreModule: Module
+    get() = module { single { createDataStore() } }

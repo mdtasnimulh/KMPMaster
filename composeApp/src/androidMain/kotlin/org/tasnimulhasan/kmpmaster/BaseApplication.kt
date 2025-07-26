@@ -4,11 +4,13 @@ import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.tasnimulhasan.kmpmaster.di.initKoin
 
-class MyApp: Application() {
+class BaseApplication: Application() {
     override fun onCreate() {
         super.onCreate()
-        initKoin {
-            androidContext(this@MyApp)
-        }
+        initKoin(
+            config = {
+                androidContext(this@BaseApplication)
+            }
+        )
     }
 }

@@ -1,15 +1,15 @@
-package com.tasnimulhasan.kmpmaster.data.datastore.storage
+package com.tasnimulhasan.datastore
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import java.io.File
 
-actual fun createDataStore(context: Any?): DataStore<Preferences> {
+fun createDataStore(): DataStore<Preferences> {
     val parentFolder = File(System.getProperty("user.dir"))
     if (!parentFolder.exists()) {
         parentFolder.mkdirs()
     }
-    val preferencesPath = File(parentFolder, dataStoreFileName)
+    val preferencesPath = File(parentFolder, DATA_STORE_FILE_NAME)
     return createDataStore(
         producePath = { preferencesPath.absolutePath }
     )

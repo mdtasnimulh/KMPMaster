@@ -1,15 +1,10 @@
 package com.tasnimulhasan.kmpmaster.domain.di
 
-import org.koin.core.annotation.ComponentScan
-import org.koin.core.annotation.Module
+import com.tasnimulhasan.kmpmaster.domain.usecase.GetIsFirstLaunchUseCase
+import com.tasnimulhasan.kmpmaster.domain.usecase.SetIsFirstLaunchUseCase
+import org.koin.dsl.module
 
-@Module
-@ComponentScan("com.tasnimulhasan.kmpmaster.domain")
-class DomainModule {
-
-    /*@Factory(binds = [PreferencesDataStoreRepository::class])
-    fun provideSetIsFirstLaunchUseCase(repository: PreferencesDataStoreRepository): SetIsFirstLaunchUseCase {
-        return SetIsFirstLaunchUseCase(repository)
-    }*/
-
+val domainModule = module {
+    factory { GetIsFirstLaunchUseCase(get()) }
+    factory { SetIsFirstLaunchUseCase(get()) }
 }

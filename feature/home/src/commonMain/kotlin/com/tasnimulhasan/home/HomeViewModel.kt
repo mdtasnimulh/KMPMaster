@@ -8,13 +8,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
-import org.koin.android.annotation.KoinViewModel
-import org.koin.core.annotation.Provided
 
-@KoinViewModel
 class HomeViewModel(
-    @Provided private val setIsFirstLaunchUseCase: SetIsFirstLaunchUseCase,
-    @Provided private val getIsFirstLaunchUseCase: GetIsFirstLaunchUseCase,
+    private val setIsFirstLaunchUseCase: SetIsFirstLaunchUseCase,
+    private val getIsFirstLaunchUseCase: GetIsFirstLaunchUseCase,
 ) : ViewModel() {
 
     private val _isFirstLaunch = MutableStateFlow("")

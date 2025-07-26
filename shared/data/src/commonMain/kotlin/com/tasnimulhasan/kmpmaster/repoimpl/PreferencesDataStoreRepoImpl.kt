@@ -13,7 +13,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import org.koin.core.annotation.Single
 
-@Single
 class PreferencesDataStoreRepoImpl(
     private val dataStore: DataStore<Preferences>
 ) : PreferencesDataStoreRepository {
