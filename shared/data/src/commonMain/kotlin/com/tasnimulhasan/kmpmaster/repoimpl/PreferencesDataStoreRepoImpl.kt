@@ -1,6 +1,9 @@
 package com.tasnimulhasan.kmpmaster.repoimpl
 
-import com.tasnimulhasan.kmpmaster.data.datastore.storage.Storage
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
 import com.tasnimulhasan.kmpmaster.domain.repository.PreferencesDataStoreRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -9,15 +12,32 @@ import org.koin.core.annotation.Single
 
 @Single
 class PreferencesDataStoreRepoImpl(
-    @Provided private val storage: Storage,
+    private val dataStore: DataStore<Preferences>
 ) : PreferencesDataStoreRepository {
 
-    override suspend fun isFirstLaunch(isFirstLaunch: String) {
-        storage.writeValue(IsFirstLaunchKey, isFirstLaunch)
+    private suspend fun tryIt(action: suspend () -> Unit) {
+        try {
+            action()
+        } catch (exception: Exception) {
+            println(exception)
+        }
     }
 
-    override fun getIsFirstLaunch(): Flow<String> = storage.getAsFlow(IsFirstLaunchKey)
-        .map { it ?: "Y" }
+    override suspend fun isFirstLaunch(isFirstLaunch: String) {
+        tryIt {
+            dataStore.edit { preferences ->
+                preferences[PreferencesKeys.isFirstLaunchKey] = isFirstLaunch
+            }
+        }
+    }
 
-    data object IsFirstLaunchKey : Storage.Key.StringKey("is_first_launch", "Y")
+    override fun getIsFirstLaunch(): Flow<String> {
+        return dataStore.data.map { preferences ->
+            preferences[PreferencesKeys.isFirstLaunchKey] ?: ""
+        }
+    }
+
+    private object PreferencesKeys {
+        val isFirstLaunchKey = stringPreferencesKey(name = "is_first_launch")
+    }
 }

@@ -1,6 +1,7 @@
 package com.tasnimulhasan.kmpmaster.di
 
-import com.tasnimulhasan.kmpmaster.data.datastore.storage.Storage
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import com.tasnimulhasan.kmpmaster.domain.repository.PreferencesDataStoreRepository
 import com.tasnimulhasan.kmpmaster.repoimpl.PreferencesDataStoreRepoImpl
 import org.koin.core.annotation.ComponentScan
@@ -12,8 +13,8 @@ import org.koin.core.annotation.Single
 class DataModule {
 
     @Single
-    fun providePreferenceDataStoreRepository(storage: Storage): PreferencesDataStoreRepository {
-        return PreferencesDataStoreRepoImpl(storage)
+    fun providePreferenceDataStoreRepository(dataStore: DataStore<Preferences>): PreferencesDataStoreRepository {
+        return PreferencesDataStoreRepoImpl(dataStore = dataStore)
     }
 
 }
