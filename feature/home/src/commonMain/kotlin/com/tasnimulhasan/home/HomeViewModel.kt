@@ -26,6 +26,7 @@ class HomeViewModel(
 
     fun setIsFirstLaunch(isFirstLaunch: String) {
         viewModelScope.launch {
+            println("Is First Launch Value: Calling set function")
             setIsFirstLaunchUseCase.invoke(isFirstLaunch)
             //fetchIsFirstLaunch()
         }
@@ -34,7 +35,8 @@ class HomeViewModel(
     private fun fetchIsFirstLaunch() {
         viewModelScope.launch {
             getIsFirstLaunchUseCase().firstOrNull()?.let {
-                _isFirstLaunch.value = it
+                _isFirstLaunch.value = it.toString()
+                println("Is First Launch Value from view model: ${isFirstLaunch.value}")
             }
         }
     }
