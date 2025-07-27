@@ -13,6 +13,7 @@ import profileScreen
 @Composable
 fun KMPMasterNavHost(
     appState: KMPMasterAppState,
+    isFistLaunch: String,
     modifier: Modifier = Modifier,
     navigateBack: () -> Unit,
 ) {
@@ -20,7 +21,11 @@ fun KMPMasterNavHost(
 
     NavHost(
         navController = navController,
-        startDestination = OnboardingRoute,
+        startDestination = when (isFistLaunch) {
+            "Y" -> OnboardingRoute
+            "N" -> HomeRoute
+            else -> {}
+        },
         modifier = modifier,
     ) {
         homeScreen()

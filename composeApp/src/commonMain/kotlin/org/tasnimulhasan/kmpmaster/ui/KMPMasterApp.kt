@@ -24,7 +24,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,7 +40,6 @@ import com.tasnimulhasan.kmpmaster.ui.core.theme.KMPMasterTheme
 import com.tasnimulhasan.onboarding.OnboardingRoute
 import org.koin.compose.viewmodel.koinViewModel
 import org.tasnimulhasan.kmpmaster.navigation.KMPMasterNavHost
-import org.tasnimulhasan.kmpmaster.navigation.TopLevelDestination
 import kotlin.reflect.KClass
 
 @Composable
@@ -97,17 +95,6 @@ internal fun KMPMasterApp(
     val navigationIconContentDescription = if (isTopLevelDestination) "Top App Bar Menu Button"
     else "Top App Bar Back Button"
 
-    LaunchedEffect(isFirstLaunch.value) {
-        if (isFirstLaunch.value == "N") {
-            appState.navController.navigate(HomeRoute) {
-                popUpTo(OnboardingRoute) {
-                    inclusive = true
-                }
-                launchSingleTop = true
-            }
-        }
-    }
-
     Box(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.background)
@@ -162,7 +149,7 @@ internal fun KMPMasterApp(
                     .padding(padding)
                     .consumeWindowInsets(padding)
             ) {
-                GetContent(appState = appState)
+                GetContent(appState = appState, isFirstLaunch = isFirstLaunch.value ?: "")
             }
         }
     }
@@ -170,10 +157,11 @@ internal fun KMPMasterApp(
 }
 
 @Composable
-private fun GetContent(appState: KMPMasterAppState) {
+private fun GetContent(appState: KMPMasterAppState, isFirstLaunch: String) {
     Box(modifier = Modifier.consumeWindowInsets(WindowInsets.safeDrawing.only(WindowInsetsSides.Top))) {
         KMPMasterNavHost(
             appState = appState,
+            isFistLaunch = isFirstLaunch,
             navigateBack = {
                 appState.navigateBack()
             },
