@@ -15,6 +15,7 @@ fun KMPMasterNavHost(
     appState: KMPMasterAppState,
     isFistLaunch: String,
     modifier: Modifier = Modifier,
+    goToHome: () -> Unit,
     navigateBack: () -> Unit,
 ) {
     val navController = appState.navController
@@ -30,6 +31,6 @@ fun KMPMasterNavHost(
     ) {
         homeScreen()
         profileScreen()
-        onboardingScreen(navigateBack)
+        onboardingScreen(navigateBack = navigateBack, goToHome = goToHome)
     }
 }

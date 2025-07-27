@@ -12,6 +12,7 @@ kotlin {
 
         commonMain.dependencies {
             implementation(projects.ui.core)
+            implementation(compose.components.resources)
         }
 
         desktopMain.dependencies {

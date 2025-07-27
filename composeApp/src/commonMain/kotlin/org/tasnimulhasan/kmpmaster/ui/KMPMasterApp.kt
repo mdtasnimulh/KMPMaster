@@ -31,6 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.rememberNavController
 import com.tasnimulhasan.home.HomeRoute
 import com.tasnimulhasan.kmpmaster.ui.core.components.KMPMasterNavigationBar
@@ -40,6 +41,7 @@ import com.tasnimulhasan.kmpmaster.ui.core.theme.KMPMasterTheme
 import com.tasnimulhasan.onboarding.OnboardingRoute
 import org.koin.compose.viewmodel.koinViewModel
 import org.tasnimulhasan.kmpmaster.navigation.KMPMasterNavHost
+import org.tasnimulhasan.kmpmaster.navigation.TopLevelDestination
 import kotlin.reflect.KClass
 
 @Composable
@@ -162,6 +164,14 @@ private fun GetContent(appState: KMPMasterAppState, isFirstLaunch: String) {
         KMPMasterNavHost(
             appState = appState,
             isFistLaunch = isFirstLaunch,
+            goToHome = {
+                appState.navController.navigate(HomeRoute) {
+                    popUpTo(OnboardingRoute) {
+                        inclusive = true
+                    }
+                    launchSingleTop = true
+                }
+            },
             navigateBack = {
                 appState.navigateBack()
             },

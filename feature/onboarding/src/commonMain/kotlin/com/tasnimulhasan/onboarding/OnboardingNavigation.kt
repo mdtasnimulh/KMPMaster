@@ -20,6 +20,7 @@ fun NavController.navigateToOnboardingScreen(navOptions: NavOptionsBuilder.() ->
 @OptIn(ExperimentalSharedTransitionApi::class)
 fun NavGraphBuilder.onboardingScreen(
     navigateBack: () -> Unit,
+    goToHome: () -> Unit,
 ) {
     composable<OnboardingRoute>(
         enterTransition = { fadeIn() },
@@ -27,6 +28,6 @@ fun NavGraphBuilder.onboardingScreen(
         popEnterTransition = { fadeIn() },
         popExitTransition = { fadeOut() }
     ) {
-        OnboardingScreen()
+        OnboardingScreen(goToHome = goToHome)
     }
 }
