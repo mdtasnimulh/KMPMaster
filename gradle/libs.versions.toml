@@ -27,6 +27,7 @@ room = "2.7.2"
 materialIconsCore = "1.7.3"
 datastore = "1.1.7"
 kotlinx-datetime = "0.7.1"
+core-splashScreen = "1.0.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -83,6 +84,8 @@ datastore-preferences = { group = "androidx.datastore", name = "datastore-prefer
 
 kotlinx-dateTime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+
+core-splashScreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "core-splashScreen"}
 
 [bundles]
 ktor = [
