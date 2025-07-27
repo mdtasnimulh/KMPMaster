@@ -14,6 +14,7 @@ fun initKoin(
         config?.invoke(this)
 
         modules(
+            appModule,
             dataModule,
             domainModule,
             dataStoreModule,

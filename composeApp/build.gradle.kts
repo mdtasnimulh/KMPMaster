@@ -49,6 +49,7 @@ kotlin {
             implementation(projects.ui.core)
             implementation(projects.feature.home)
             implementation(projects.feature.profile)
+            implementation(projects.feature.onboarding)
 
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)

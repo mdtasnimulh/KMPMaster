@@ -5,6 +5,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.tasnimulhasan.home.HomeRoute
 import com.tasnimulhasan.home.homeScreen
+import com.tasnimulhasan.onboarding.OnboardingRoute
+import com.tasnimulhasan.onboarding.onboardingScreen
 import org.tasnimulhasan.kmpmaster.ui.KMPMasterAppState
 import profileScreen
 
@@ -18,10 +20,11 @@ fun KMPMasterNavHost(
 
     NavHost(
         navController = navController,
-        startDestination = HomeRoute,
+        startDestination = OnboardingRoute,
         modifier = modifier,
     ) {
         homeScreen()
         profileScreen()
+        onboardingScreen(navigateBack)
     }
 }

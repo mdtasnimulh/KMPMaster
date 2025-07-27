@@ -16,6 +16,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.Segment
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -23,6 +24,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavDestination
@@ -34,7 +38,10 @@ import com.tasnimulhasan.kmpmaster.ui.core.components.KMPMasterNavigationBar
 import com.tasnimulhasan.kmpmaster.ui.core.components.KMPMasterNavigationBarItem
 import com.tasnimulhasan.kmpmaster.ui.core.components.KMPMasterTopAppBar
 import com.tasnimulhasan.kmpmaster.ui.core.theme.KMPMasterTheme
+import com.tasnimulhasan.onboarding.OnboardingRoute
+import org.koin.compose.viewmodel.koinViewModel
 import org.tasnimulhasan.kmpmaster.navigation.KMPMasterNavHost
+import org.tasnimulhasan.kmpmaster.navigation.TopLevelDestination
 import kotlin.reflect.KClass
 
 @Composable
@@ -54,10 +61,23 @@ fun KMPMasterApp() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun KMPMasterApp(
+    viewmodel: KmpMasterViewModel = koinViewModel(),
     appState: KMPMasterAppState,
     onTopAppBarActionClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val isFirstLaunch = viewmodel.isFirstLaunch.collectAsState()
+
+    if (isFirstLaunch.value == null) {
+        Box(
+            modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
+        }
+        return
+    }
+
     val currentDestination = appState.currentDestination
     val navController = rememberNavController()
 
@@ -77,6 +97,17 @@ internal fun KMPMasterApp(
     val navigationIconContentDescription = if (isTopLevelDestination) "Top App Bar Menu Button"
     else "Top App Bar Back Button"
 
+    LaunchedEffect(isFirstLaunch.value) {
+        if (isFirstLaunch.value == "N") {
+            appState.navController.navigate(HomeRoute) {
+                popUpTo(OnboardingRoute) {
+                    inclusive = true
+                }
+                launchSingleTop = true
+            }
+        }
+    }
+
     Box(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.background)
@@ -88,20 +119,22 @@ internal fun KMPMasterApp(
         Scaffold(
             modifier = modifier,
             topBar = {
-                KMPMasterTopAppBar(
-                    titleRes = currentTitleRes,
-                    navigationIcon = navigationIcon,
-                    navigationIconContentDescription = navigationIconContentDescription,
-                    actionIcon = Icons.Filled.MoreVert,
-                    actionIconsContentDescription = "Settings",
-                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = Color.Transparent),
-                    onActionClick = { onTopAppBarActionClick() },
-                    onNavigationClick = {
-                        appState.navigateBack()
-                        //if (!isTopLevelDestination) appState.navigateBack()
-                        //else customDrawerState = customDrawerState.opposite()
-                    }
-                )
+                if (!currentDestination.isRouteInHierarchy(OnboardingRoute::class)) {
+                    KMPMasterTopAppBar(
+                        titleRes = currentTitleRes,
+                        navigationIcon = navigationIcon,
+                        navigationIconContentDescription = navigationIconContentDescription,
+                        actionIcon = Icons.Filled.MoreVert,
+                        actionIconsContentDescription = "Settings",
+                        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = Color.Transparent),
+                        onActionClick = { onTopAppBarActionClick() },
+                        onNavigationClick = {
+                            appState.navigateBack()
+                            //if (!isTopLevelDestination) appState.navigateBack()
+                            //else customDrawerState = customDrawerState.opposite()
+                        }
+                    )
+                }
             },
             bottomBar = {
                 if (isTopLevelDestination){
