@@ -118,8 +118,8 @@ internal fun KMPMasterApp(
                         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = Color.Transparent),
                         onActionClick = { onTopAppBarActionClick() },
                         onNavigationClick = {
-                            appState.navigateBack()
-                            //if (!isTopLevelDestination) appState.navigateBack()
+                            //appState.navigateBack()
+                            if (!isTopLevelDestination) appState.navigateBack()
                             //else customDrawerState = customDrawerState.opposite()
                         }
                     )
