@@ -2,31 +2,31 @@ package org.tasnimulhasan.kmpmaster.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import com.tasnimulhasan.home.HomeRoute
 import com.tasnimulhasan.home.homeScreen
 import com.tasnimulhasan.onboarding.OnboardingRoute
 import com.tasnimulhasan.onboarding.onboardingScreen
+import org.koin.android.annotation.KoinViewModel
+import org.koin.compose.viewmodel.koinViewModel
 import org.tasnimulhasan.kmpmaster.ui.KMPMasterAppState
+import org.tasnimulhasan.kmpmaster.ui.KmpMasterViewModel
 import profileScreen
 
 @Composable
 fun KMPMasterNavHost(
     appState: KMPMasterAppState,
-    isFistLaunch: String,
     modifier: Modifier = Modifier,
     goToHome: () -> Unit,
     navigateBack: () -> Unit,
 ) {
     val navController = appState.navController
+    val viewModel: KmpMasterViewModel = koinViewModel()
 
     NavHost(
         navController = navController,
-        startDestination = when (isFistLaunch) {
-            "Y" -> OnboardingRoute
-            "N" -> HomeRoute
-            else -> {}
-        },
+        startDestination = viewModel.determineStartDestination(),
         modifier = modifier,
     ) {
         homeScreen()

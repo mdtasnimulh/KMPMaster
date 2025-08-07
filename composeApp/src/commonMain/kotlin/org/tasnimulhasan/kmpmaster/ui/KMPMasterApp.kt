@@ -24,14 +24,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.rememberNavController
 import com.tasnimulhasan.home.HomeRoute
 import com.tasnimulhasan.kmpmaster.ui.core.components.KMPMasterNavigationBar
@@ -41,7 +40,6 @@ import com.tasnimulhasan.kmpmaster.ui.core.theme.KMPMasterTheme
 import com.tasnimulhasan.onboarding.OnboardingRoute
 import org.koin.compose.viewmodel.koinViewModel
 import org.tasnimulhasan.kmpmaster.navigation.KMPMasterNavHost
-import org.tasnimulhasan.kmpmaster.navigation.TopLevelDestination
 import kotlin.reflect.KClass
 
 @Composable
@@ -66,17 +64,7 @@ internal fun KMPMasterApp(
     onTopAppBarActionClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val isFirstLaunch = viewmodel.isFirstLaunch.collectAsState()
-
-    if (isFirstLaunch.value == null) {
-        Box(
-            modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
-            contentAlignment = Alignment.Center
-        ) {
-            CircularProgressIndicator()
-        }
-        return
-    }
+    val uiState = viewmodel.uiState.collectAsStateWithLifecycle()
 
     val currentDestination = appState.currentDestination
     val navController = rememberNavController()
@@ -97,61 +85,76 @@ internal fun KMPMasterApp(
     val navigationIconContentDescription = if (isTopLevelDestination) "Top App Bar Menu Button"
     else "Top App Bar Back Button"
 
-    Box(
-        modifier = Modifier
-            .background(MaterialTheme.colorScheme.background)
-            .background(MaterialTheme.colorScheme.background.copy(alpha = 0.05f))
-            .statusBarsPadding()
-            .navigationBarsPadding()
-            .fillMaxSize()
-    ) {
-        Scaffold(
-            modifier = modifier,
-            topBar = {
-                if (!currentDestination.isRouteInHierarchy(OnboardingRoute::class)) {
-                    KMPMasterTopAppBar(
-                        titleRes = currentTitleRes,
-                        navigationIcon = navigationIcon,
-                        navigationIconContentDescription = navigationIconContentDescription,
-                        actionIcon = Icons.Filled.MoreVert,
-                        actionIconsContentDescription = "Settings",
-                        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = Color.Transparent),
-                        onActionClick = { onTopAppBarActionClick() },
-                        onNavigationClick = {
-                            //appState.navigateBack()
-                            if (!isTopLevelDestination) appState.navigateBack()
-                            //else customDrawerState = customDrawerState.opposite()
-                        }
-                    )
-                }
-            },
-            bottomBar = {
-                if (isTopLevelDestination){
-                    KMPMasterNavigationBar {
-                        appState.topLevelDestination.forEach { destination ->
-                            KMPMasterNavigationBarItem(
-                                selected = currentDestination.isRouteInHierarchy(destination.route),
-                                onClick = { appState.navigateToTopLevelDestination(destination) },
-                                icon = { Icon(imageVector = destination.unSelectedIcon, contentDescription = null) },
-                                selectedIcon = { Icon(imageVector = destination.selectedIcon, contentDescription = null) },
-                                label = { Text(text = destination.iconTextId) },
+    when(uiState.value) {
+        is UiState.Loading -> {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+        }
+
+        is UiState.Ready -> {
+            Box(
+                modifier = Modifier
+                    .background(MaterialTheme.colorScheme.background)
+                    .background(MaterialTheme.colorScheme.background.copy(alpha = 0.05f))
+                    .statusBarsPadding()
+                    .navigationBarsPadding()
+                    .fillMaxSize()
+            ) {
+                Scaffold(
+                    modifier = modifier,
+                    topBar = {
+                        if (!currentDestination.isRouteInHierarchy(OnboardingRoute::class)) {
+                            KMPMasterTopAppBar(
+                                titleRes = currentTitleRes,
+                                navigationIcon = navigationIcon,
+                                navigationIconContentDescription = navigationIconContentDescription,
+                                actionIcon = Icons.Filled.MoreVert,
+                                actionIconsContentDescription = "Settings",
+                                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = Color.Transparent),
+                                onActionClick = { onTopAppBarActionClick() },
+                                onNavigationClick = {
+                                    //appState.navigateBack()
+                                    if (!isTopLevelDestination) appState.navigateBack()
+                                    //else customDrawerState = customDrawerState.opposite()
+                                }
                             )
                         }
+                    },
+                    bottomBar = {
+                        if (isTopLevelDestination){
+                            KMPMasterNavigationBar {
+                                appState.topLevelDestination.forEach { destination ->
+                                    KMPMasterNavigationBarItem(
+                                        selected = currentDestination.isRouteInHierarchy(destination.route),
+                                        onClick = { appState.navigateToTopLevelDestination(destination) },
+                                        icon = { Icon(imageVector = destination.unSelectedIcon, contentDescription = null) },
+                                        selectedIcon = { Icon(imageVector = destination.selectedIcon, contentDescription = null) },
+                                        label = { Text(text = destination.iconTextId) },
+                                    )
+                                }
+                            }
+                        }
+                    },
+                    containerColor = Color.Transparent,
+                    contentColor = MaterialTheme.colorScheme.onBackground,
+                    contentWindowInsets = WindowInsets(0, 0, 0, 0),
+                ) { padding ->
+                    Box(
+                        modifier
+                            .fillMaxSize()
+                            .background(color = MaterialTheme.colorScheme.background)
+                            .padding(padding)
+                            .consumeWindowInsets(padding)
+                    ) {
+                        GetContent(appState = appState)
                     }
                 }
-            },
-            containerColor = Color.Transparent,
-            contentColor = MaterialTheme.colorScheme.onBackground,
-            contentWindowInsets = WindowInsets(0, 0, 0, 0),
-        ) { padding ->
-            Box(
-                modifier
-                    .fillMaxSize()
-                    .background(color = MaterialTheme.colorScheme.background)
-                    .padding(padding)
-                    .consumeWindowInsets(padding)
-            ) {
-                GetContent(appState = appState, isFirstLaunch = isFirstLaunch.value ?: "")
             }
         }
     }
@@ -159,11 +162,10 @@ internal fun KMPMasterApp(
 }
 
 @Composable
-private fun GetContent(appState: KMPMasterAppState, isFirstLaunch: String) {
+private fun GetContent(appState: KMPMasterAppState) {
     Box(modifier = Modifier.consumeWindowInsets(WindowInsets.safeDrawing.only(WindowInsetsSides.Top))) {
         KMPMasterNavHost(
             appState = appState,
-            isFistLaunch = isFirstLaunch,
             goToHome = {
                 appState.navController.navigate(HomeRoute) {
                     popUpTo(OnboardingRoute) {
